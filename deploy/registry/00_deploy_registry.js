@@ -6,6 +6,8 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
     const {deploy} = deployments;
     const {deployer, owner} = await getNamedAccounts();
 
+    
+
     if(network.tags.legacy) {
         const contract = await deploy('LegacyENSRegistry', {
             from: deployer,
@@ -24,7 +26,8 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
             from: deployer,
             args: [],
             log: true,
-        });    
+        }); 
+        
     }
 
     if(!network.tags.use_root) {
