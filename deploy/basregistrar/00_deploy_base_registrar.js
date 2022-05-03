@@ -4,7 +4,7 @@ const { ethers } = require("hardhat");
 
 const namehash = require('eth-ens-namehash');
 
-module.exports = async ({getNamedAccounts, deployments, network}) => {
+module.exports = async ({getNamedAccounts, deployments, network, config}) => {
     const {deploy} = deployments;
     const {deployer, owner} = await getNamedAccounts();
 
@@ -12,7 +12,7 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
 
     await deploy('BaseRegistrarImplementation', {
         from: deployer, 
-        args: [ens.address, namehash.hash('avax')],
+        args: [ens.address, namehash.hash(config.tld)],
         log: true
     })
 }
