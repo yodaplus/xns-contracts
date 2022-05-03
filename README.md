@@ -2,6 +2,14 @@
 
 [![Build Status](https://travis-ci.org/ensdomains/ens-contracts.svg?branch=master)](https://travis-ci.org/ensdomains/ens-contracts)
 
+The Xinfin Name Service (XNS) is a distributed, open, and extensible naming system based on the Xinfin blockchain.
+
+XNS’s job is to map human-readable names like ‘alice.xdc’ to machine-readable identifiers such as Xinfin Chain addresses, other cryptocurrency addresses, content hashes, and metadata. XNS also supports ‘reverse resolution’, making it possible to associate metadata such as canonical names or interface descriptions with Ethereum addresses.
+
+XNS has similar goals to DNS, the Internet’s Domain Name Service, but has significantly different architecture due to the capabilities and constraints provided by the Avalanche blockchain. Like DNS, XNS operates on a system of dot-separated hierarchical names called domains, with the owner of a domain having full control over subdomains.
+
+Top-level domains, like ‘.xdc’ and ‘.test’, are owned by smart contracts called registrars, which specify rules governing the allocation of their subdomains. Anyone may, by following the rules imposed by these registrar contracts, obtain ownership of a domain for their own use. XNS also supports importing in DNS names already owned by the user for use on XNS.
+
 For documentation of the ENS system, see [docs.ens.domains](https://docs.ens.domains/).
 
 ## npm package
@@ -25,7 +33,7 @@ import {
   ReverseRegistrar,
   StablePriceOracle,
   TestRegistrar
-} from '@ensdomains/ens-contracts'
+} from '@xnsdomains/ens-contracts'
 ```
 
 ## Importing from solidity
@@ -165,4 +173,15 @@ yarn test
 
 ```
 yarn pub
+```
+
+### Deploy on apothem testnet
+```
+yarn deploy-apothem
+```
+
+### How to run tests
+
+```
+yarn test --network apothem
 ```
