@@ -1,4 +1,4 @@
-# ENS
+# XNS
 
 [![Build Status](https://travis-ci.org/ensdomains/ens-contracts.svg?branch=master)](https://travis-ci.org/ensdomains/ens-contracts)
 
