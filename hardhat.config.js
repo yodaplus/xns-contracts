@@ -22,6 +22,9 @@ task('accounts', 'Prints the list of accounts', async () => {
   }
 })
 
+// TLD to use in deployment
+const TLD = 'xdc';
+
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
@@ -29,6 +32,16 @@ real_accounts = undefined
 if (process.env.DEPLOYER_KEY && process.env.OWNER_KEY) {
   real_accounts = [process.env.DEPLOYER_KEY, process.env.OWNER_KEY]
 }
+
+const { MNEMONIC } = process.env;
+const DEFAULT_MNEMONIC =
+	"juice whisper void palm tackle film float able plunge invest focus flee";
+
+const sharedNetworkConfig = {
+	accounts: {
+		mnemonic: MNEMONIC ?? DEFAULT_MNEMONIC,
+	},
+};
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -53,10 +66,12 @@ module.exports = {
       accounts: real_accounts,
     },
     mainnet: {
-      url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
-      tags: ['legacy', 'use_root'],
-      chainId: 1,
-      accounts: real_accounts,
+      ...sharedNetworkConfig,
+      url: `https://rpc.xinfin.yodaplus.net`,
+    },
+    apothem: {
+      ...sharedNetworkConfig,
+      url: "https://rpc-apothem.xinfin.yodaplus.net",
     },
   },
   mocha: {},
