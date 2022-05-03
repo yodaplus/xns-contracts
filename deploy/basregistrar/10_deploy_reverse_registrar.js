@@ -4,11 +4,11 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
     const {deployer, owner} = await getNamedAccounts();
 
     const ens = await ethers.getContract('ENSRegistry');
-    const resolver = await ethers.getContract('PublicResolver');
+    // const resolver = await ethers.getContract('PublicResolver');
 
     await deploy('ReverseRegistrar', {
         from: deployer, 
-        args:[ens.address, resolver.address]
+        args:[ens.address]
     })
 }
 

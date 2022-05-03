@@ -11,7 +11,7 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
 
     await deploy('StablePriceOracle', {
         from: deployer, 
-        args:[oracle.address,[1]],
+        args:[oracle.address,[1,5,2,3,2]],
         log:true
     })
     

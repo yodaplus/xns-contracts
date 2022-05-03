@@ -10,8 +10,40 @@ const namehash = require('eth-ens-namehash');
 
 const {getNamedAccounts, hardhatArguments, deployments, web3, ethers, config} = hre;
 
+const tld_map = {
+    'mainnet': ['xyz'],
+    'ropsten': ['xyz'],
+    'localhost': ['xyz'],
+}
+
+async function setTLDsOnRoot(owner, root, registrar, tlds) {
+    if(tlds === undefined){
+        return [];
+    }
+
+    const transactions = []
+    for(const tld of tlds) {
+        const labelhash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tld));
+        transactions.push(await root.setSubnodeOwner(labelhash, registrar.address, {from: owner}));
+    }
+    return transactions;
+}
+
+async function setTLDsOnRegistry(owner, registry, registrar, tlds) {
+    if(tlds === undefined){
+        return [];
+    }
+
+    const transactions = []
+    for(const tld of tlds) {
+        const labelhash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tld));
+        transactions.push(await registry.setSubnodeOwner(ZERO_HASH, labelhash, registrar.address, {from: owner}));
+    }
+    return transactions;
+}
+
 async function main() {
-    const {deployer} = await getNamedAccounts();
+    const {deployer, owner} = await getNamedAccounts();
     const getContract = async (name) => {
         const contract = await deployments.get(name);
         return ethers.getContractAt(contract.abi, contract.address);
@@ -57,6 +89,21 @@ async function main() {
     //
     // console.log('Setting registry owner to burn address')
     // await ens.setOwner(ZERO_HASH, EMPTY_ADDRESS);
+    const DNSRegistrar = await ethers.getContract('DNSRegistrar');
+
+    let transactions;
+    if(network.tags.use_root) {
+        const root = await getContract('Root');
+        transactions = await setTLDsOnRoot(owner, root, DNSRegistrar, tld_map[network.name]);
+    } else {
+        const registry = await getContract('ENSRegistry');
+        transactions = await setTLDsOnRegistry(owner, registry, DNSRegistrar, tld_map[network.name]);
+    }
+
+    if(transactions.length > 0) {
+        console.log(`Waiting on ${transactions.length} transactions setting DNS TLDs`)
+        await Promise.all(transactions.map((tx) => tx.wait()));
+    }
 
     console.log('Done!');
 }
