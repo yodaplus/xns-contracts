@@ -179,6 +179,10 @@ yarn pub
 ```
 yarn deploy-apothem
 ```
+### Run finalize script
+```
+yarn finalize-apothem
+```
 
 ### How to run tests
 

@@ -9,7 +9,12 @@
     "build": "npx hardhat compile",
     "prepublishOnly": "yarn build",
     "pub": "yarn publish --access public",
-    "deploy-local": "hardhat --network localhost deploy  --reset --export deployments/local.json"
+    "deploy-mainnet": "hardhat --network mainnet deploy --reset --export deployments/mainnet.json",
+    "deploy-apothem": "hardhat --network apothem deploy --reset --export deployments/apothem.json",
+    "deploy-local": "hardhat --network localhost deploy  --reset --export deployments/local.json",
+    "finalize-mainnet": "npx hardhat --network mainnet run scripts/finalize.js",
+    "finalize-apothem": "npx hardhat --network apothem run scripts/finalize.js",
+    "finalize-local": "npx hardhat --network localhost run scripts/finalize.js"
   },
   "files": [
     "build/contracts/*json",
