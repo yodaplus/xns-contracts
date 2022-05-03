@@ -47,6 +47,7 @@ const sharedNetworkConfig = {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  tld: TLD,
   networks: {
     hardhat: {
       // Required for real DNS record tests
