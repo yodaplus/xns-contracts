@@ -1,10 +1,8 @@
 const { ethers } = require("hardhat");
-const ZERO_HASH = "0x0000000000000000000000000000000000000000000000000000000000000000";
 
 // const ethernal = require('hardhat-ethernal');
 
 const namehash = require('eth-ens-namehash');
-const sha3 = require('web3-utils').sha3;
 
 module.exports = async ({getNamedAccounts, deployments, network}) => {
     const {deploy} = deployments;
@@ -17,15 +15,6 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
         args: [ens.address, namehash.hash('avax')],
         log: true
     })
-
-    const base = await ethers.getContract('BaseRegistrarImplementation');
-
-    const transactions = []
-    transactions.push(await base.addController(deployer))
-    transactions.push(await ens.setSubnodeOwner(ZERO_HASH, sha3('avax'), base.address))
-
-    console.log(`Waiting on ${transactions.length} transactions setting base registrar`);
-    await Promise.all(transactions.map((tx) => tx.wait()));
 }
 
 
