@@ -42,7 +42,7 @@ module.exports = {
       tags: ['test', 'legacy', 'use_root'],
     },
     localhost: {
-      url: 'http://127.0.0.1:9545',
+      url: 'http://127.0.0.1:8545',
       saveDeployments: false,
       tags: ['test', 'legacy', 'use_root'],
     },
