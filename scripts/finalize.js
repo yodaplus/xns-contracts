@@ -60,7 +60,7 @@ async function main() {
     const priceOracle = await ethers.getContract('StablePriceOracle')
 
 
-    console.log(`Waiting on ${transactions.length} transactions setting base registrar`);
+    console.log(`Waiting on transactions setting base registrar`);
     await registrar.addController(deployer)
 
     console.log('setting ' + config.tld + ' owner to registrar address ' + registrar.address);
