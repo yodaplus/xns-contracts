@@ -5,7 +5,6 @@ require('@nomiclabs/hardhat-solhint')
 require('hardhat-gas-reporter')
 require('hardhat-deploy')
 require('hardhat-deploy-ethers')
-
 // Load environment variables from .env file. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables
 // that have already been set.
@@ -35,12 +34,12 @@ if (process.env.DEPLOYER_KEY && process.env.OWNER_KEY) {
 
 const { MNEMONIC } = process.env;
 const DEFAULT_MNEMONIC =
-	"juice whisper void palm tackle film float able plunge invest focus flee";
+  "juice whisper void palm tackle film float able plunge invest focus flee";
 
 const sharedNetworkConfig = {
-	accounts: {
-		mnemonic: MNEMONIC ?? DEFAULT_MNEMONIC,
-	},
+  accounts: {
+    mnemonic: MNEMONIC ?? DEFAULT_MNEMONIC,
+  },
 };
 
 /**
@@ -73,6 +72,11 @@ module.exports = {
     apothem: {
       ...sharedNetworkConfig,
       url: "https://rpc-apothem.xinfin.yodaplus.net",
+      gasPrice: 10000000000,
+      accounts: real_accounts,
+      tags: ['test', 'legacy', 'use_root'],
+
+
     },
   },
   mocha: {},

@@ -823,9 +823,9 @@ describe('Name Wrapper', () => {
         account,
         CANNOT_UNWRAP
       )
-      ;[fuses, vulnerability, nodeVulnerable] = await NameWrapper.getFuses(
-        namehash('sub.wrapped2.eth')
-      )
+        ;[fuses, vulnerability, nodeVulnerable] = await NameWrapper.getFuses(
+          namehash('sub.wrapped2.eth')
+        )
       expect(fuses).to.equal(CANNOT_UNWRAP)
       expect(vulnerability).to.equal(ParentVulnerability.Safe)
       expect(nodeVulnerable).to.equal(EMPTY_BYTES32)
@@ -843,15 +843,15 @@ describe('Name Wrapper', () => {
         CAN_DO_EVERYTHING,
         EMPTY_ADDRESS
       )
-      ;[fuses, vulnerability] = await NameWrapper.getFuses(
-        namehash('wrapped2.eth')
-      )
+        ;[fuses, vulnerability] = await NameWrapper.getFuses(
+          namehash('wrapped2.eth')
+        )
       expect(fuses).to.equal(CAN_DO_EVERYTHING)
       expect(vulnerability).to.equal(ParentVulnerability.Safe)
       expect(nodeVulnerable).to.equal(EMPTY_BYTES32)
-      ;[fuses, vulnerability, nodeVulnerable] = await NameWrapper.getFuses(
-        namehash('sub.wrapped2.eth')
-      )
+        ;[fuses, vulnerability, nodeVulnerable] = await NameWrapper.getFuses(
+          namehash('sub.wrapped2.eth')
+        )
       expect(fuses).to.equal(CANNOT_UNWRAP)
       expect(vulnerability).to.equal(ParentVulnerability.Fuses)
       expect(nodeVulnerable).to.equal(namehash('wrapped2.eth'))
@@ -1208,7 +1208,7 @@ describe('Name Wrapper', () => {
       expect(vulnerability).to.equal(ParentVulnerability.Safe)
 
       await NameWrapper.burnFuses(wrappedTokenId, CANNOT_TRANSFER)
-      ;[fuses, vulnerability] = await NameWrapper.getFuses(wrappedTokenId)
+        ;[fuses, vulnerability] = await NameWrapper.getFuses(wrappedTokenId)
       expect(fuses).to.equal(CANNOT_UNWRAP | CANNOT_TRANSFER)
       expect(vulnerability).to.equal(ParentVulnerability.Safe)
     })
@@ -2544,8 +2544,8 @@ describe('Name Wrapper', () => {
       expect(vulnerability).to.equal(ParentVulnerability.Fuses)
       expect(vulnerableNode).to.equal(nameHash)
 
-      //check parent fuses
-      ;[fuses, vulnerability] = await NameWrapper.getFuses(nameHash)
+        //check parent fuses
+        ;[fuses, vulnerability] = await NameWrapper.getFuses(nameHash)
 
       expect(fuses).to.equal(initialFuses)
       expect(vulnerability).to.equal(ParentVulnerability.Safe)

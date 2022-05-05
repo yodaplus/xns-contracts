@@ -7,43 +7,43 @@ const hre = require("hardhat");
 const sha3 = require('web3-utils').sha3;
 const namehash = require('eth-ens-namehash');
 
-
-const {getNamedAccounts, hardhatArguments, deployments, web3, ethers, config} = hre;
+const { getNamedAccounts, hardhatArguments, deployments, web3, ethers, config } = hre;
 
 const tld_map = {
     'mainnet': ['xyz'],
     'ropsten': ['xyz'],
     'localhost': ['xyz'],
+    'apothem': ['xdc'],
 }
 
 async function setTLDsOnRoot(owner, root, registrar, tlds) {
-    if(tlds === undefined){
+    if (tlds === undefined) {
         return [];
     }
 
     const transactions = []
-    for(const tld of tlds) {
+    for (const tld of tlds) {
         const labelhash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tld));
-        transactions.push(await root.setSubnodeOwner(labelhash, registrar.address, {from: owner}));
+        transactions.push(await root.setSubnodeOwner(labelhash, registrar.address));
     }
     return transactions;
 }
 
 async function setTLDsOnRegistry(owner, registry, registrar, tlds) {
-    if(tlds === undefined){
+    if (tlds === undefined) {
         return [];
     }
 
     const transactions = []
-    for(const tld of tlds) {
+    for (const tld of tlds) {
         const labelhash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tld));
-        transactions.push(await registry.setSubnodeOwner(ZERO_HASH, labelhash, registrar.address, {from: owner}));
+        transactions.push(await registry.setSubnodeOwner(ZERO_HASH, labelhash, registrar.address));
     }
     return transactions;
 }
 
 async function main() {
-    const {deployer, owner} = await getNamedAccounts();
+    const { deployer, owner } = await getNamedAccounts();
     const getContract = async (name) => {
         const contract = await deployments.get(name);
         return ethers.getContractAt(contract.abi, contract.address);
@@ -58,13 +58,12 @@ async function main() {
     const controller = await getContract('ETHRegistrarController');
     const resolver = await getContract('PublicResolver');
     const priceOracle = await ethers.getContract('StablePriceOracle')
-
-
+    const root = await getContract('Root');
     console.log(`Waiting on transactions setting base registrar`);
     await registrar.addController(deployer)
-
     console.log('setting ' + config.tld + ' owner to registrar address ' + registrar.address);
-    await ens.setSubnodeOwner(ZERO_HASH, sha3(config.tld), registrar.address);
+    await ens.setSubnodeOwner(ZERO_HASH, sha3(config.tld), registrar.address,);
+
 
     console.log('setting .reverse owner to deployer account address ' + deployer);
     await ens.setSubnodeOwner(ZERO_HASH, sha3('reverse'), deployer);
@@ -73,15 +72,22 @@ async function main() {
     await ens.setSubnodeOwner(namehash.hash('reverse'), sha3('addr'), reverse.address);
 
     console.log('adding ETHRegistrarController to the BaseRegistrar');
-    await registrar.addController(controller.address, {from: deployer});
+    await registrar.addController(controller.address, { from: deployer });
     // ESTIMATE GAS -->
-    await controller.setPriceOracle(priceOracle.address, {from: deployer});
+    // await controller.setPriceOracle(priceOracle.address, { from: deployer });
 
     console.log('use PublicResolver in the BaseRegistrar');
+    console.log('setting .eth owner to PublicResolver address ' + resolver.address);
     await ens.setSubnodeOwner(ZERO_HASH, sha3(config.tld), deployer)
-    await ens.setResolver(namehash.hash(config.tld), resolver.address)
+    console.log('setting .eth.reverse owner to PublicResolver address ' + resolver.address);
+    await ens.setResolver(namehash.hash(config.tld), resolver.address);
+    console.log('setting .eth.reverse.addr owner to PublicResolver address ' + resolver.address);
     await resolver['setAddr(bytes32,address)'](namehash.hash(config.tld), resolver.address)
-    await registrar.setResolver(resolver.address);
+    console.log("done with this")
+    // Not needed
+
+    // await registrar.setResolver(resolver.address);
+
 
     // Optional for later setting ReverseRegistrar and ENSRegistry owners to burn address
     // console.log('Setting .reverse owner to burn address');
@@ -92,15 +98,15 @@ async function main() {
     const DNSRegistrar = await ethers.getContract('DNSRegistrar');
 
     let transactions;
-    if(network.tags.use_root) {
-        const root = await getContract('Root');
+    if (network.tags.use_root) {
+        const root = await getContract('Root', { from: deployer });
         transactions = await setTLDsOnRoot(owner, root, DNSRegistrar, tld_map[network.name]);
     } else {
         const registry = await getContract('ENSRegistry');
         transactions = await setTLDsOnRegistry(owner, registry, DNSRegistrar, tld_map[network.name]);
     }
 
-    if(transactions.length > 0) {
+    if (transactions.length > 0) {
         console.log(`Waiting on ${transactions.length} transactions setting DNS TLDs`)
         await Promise.all(transactions.map((tx) => tx.wait()));
     }
