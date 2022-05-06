@@ -1,7 +1,8 @@
 const { ethers } = require("hardhat");
+const ZERO_HASH = "0x0000000000000000000000000000000000000000000000000000000000000000";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
-module.exports = async ({getNamedAccounts, deployments, network}) => {
+module.exports = async ({getNamedAccounts, deployments, network, config}) => {
     const {deploy} = deployments;
     const {deployer, owner} = await getNamedAccounts();
 
@@ -13,6 +14,14 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
         log: true
     })
 
+    const resolver = await ethers.getContract('PublicResolver')
+
+    const transactions = []
+    transactions.push(await ens.setSubnodeOwner(ZERO_HASH, sha3(config.tld), deployer))
+    transactions.push(await ens.setResolver(namehash.hash(config.tld), resolver.address))
+    transactions.push(await resolver['setAddr(bytes32,address)'](namehash.hash(config.tld), resolver.address))
+    console.log(`Waiting on settings to take place on resolvers ${transactions.length}`)
+    await Promise.all(transactions.map((tx) => tx.wait()));
     
     // const rootOwner = await ens.owner(ZERO_HASH);
     //     switch(rootOwner) {
