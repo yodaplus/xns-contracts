@@ -22,7 +22,7 @@ module.exports = async ({getNamedAccounts, deployments, network, config}) => {
 
     const transactions = []
     transactions.push(await base.addController(deployer))
-    transactions.push(await ens.setSubnodeOwner(ZERO_HASH, sha3(config.tld), registrar.address))
+    transactions.push(await ens.setSubnodeOwner(ZERO_HASH, sha3(config.tld), base.address))
 
     console.log(`Waiting on ${transactions.length} transactions setting base registrar`);
     await Promise.all(transactions.map((tx) => tx.wait()));

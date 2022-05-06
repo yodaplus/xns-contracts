@@ -22,7 +22,7 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
     const transactions = []
     transactions.push(await baseRegistrar.addController(controller.address, {from: deployer}))
     // ESTIMATE GAS -->
-    transactions.push(await controller.setPriceOracle(priceOracle.address, {from: deployer}));
+    // transactions.push(await controller.setPriceOracle(priceOracle.address, {from: deployer}));
     console.log(`Waiting on settings to take place ${transactions.length}`)
     await Promise.all(transactions.map((tx) => tx.wait()));
 

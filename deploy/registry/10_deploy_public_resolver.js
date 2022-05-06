@@ -1,4 +1,6 @@
 const { ethers } = require("hardhat");
+const sha3 = require('web3-utils').sha3;
+const namehash = require('eth-ens-namehash');
 const ZERO_HASH = "0x0000000000000000000000000000000000000000000000000000000000000000";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
