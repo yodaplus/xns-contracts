@@ -68,10 +68,12 @@ module.exports = {
     },
     mainnet: {
       ...sharedNetworkConfig,
+      tags: ["legacy", "use_root"],
       url: `https://rpc.xinfin.yodaplus.net`,
     },
     apothem: {
       ...sharedNetworkConfig,
+      tags: ["legacy", "use_root"],
       url: "https://rpc-apothem.xinfin.yodaplus.net",
     },
   },
