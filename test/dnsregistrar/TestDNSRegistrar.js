@@ -11,7 +11,7 @@ const { assert } = require('chai')
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-contract('DNSRegistrar', function(accounts) {
+contract('DNSRegistrar', function (accounts) {
   var registrar = null
   var ens = null
   var root = null
@@ -19,7 +19,7 @@ contract('DNSRegistrar', function(accounts) {
   var suffixes = null
   var now = Math.round(new Date().getTime() / 1000)
 
-  beforeEach(async function() {
+  beforeEach(async function () {
     ens = await ENSRegistry.new()
 
     root = await Root.new(ens.address)
@@ -41,7 +41,7 @@ contract('DNSRegistrar', function(accounts) {
     await root.setController(registrar.address, true)
   })
 
-  it('allows anyone to claim on behalf of the owner of an ENS name', async function() {
+  it('allows anyone to claim on behalf of the owner of an ENS name', async function () {
     assert.equal(await registrar.oracle(), dnssec.address)
     assert.equal(await registrar.ens(), ens.address)
 
@@ -92,7 +92,7 @@ contract('DNSRegistrar', function(accounts) {
     assert.equal(await ens.owner(namehash.hash('foo.test')), accounts[0])
   })
 
-  it('allows claims on names that are not TLDs', async function() {
+  it('allows claims on names that are not TLDs', async function () {
     var proof = utils.hexEncodeTXT({
       name: '_ens.foo.co.nz',
       type: 'TXT',
@@ -114,7 +114,7 @@ contract('DNSRegistrar', function(accounts) {
     assert.equal(await ens.owner(namehash.hash('foo.co.nz')), accounts[0])
   })
 
-  it('allows anyone to zero out an obsolete name', async function() {
+  it('allows anyone to zero out an obsolete name', async function () {
     await dnssec.setData(
       16,
       utils.hexEncodeName('_ens.foo.test'),
@@ -128,7 +128,7 @@ contract('DNSRegistrar', function(accounts) {
     assert.equal(await ens.owner(namehash.hash('foo.test')), 0)
   })
 
-  it('allows anyone to update a DNSSEC referenced name', async function() {
+  it('allows anyone to update a DNSSEC referenced name', async function () {
     var proof = utils.hexEncodeTXT({
       name: '_ens.foo.test',
       type: 'TXT',
@@ -149,7 +149,7 @@ contract('DNSRegistrar', function(accounts) {
     assert.equal(await ens.owner(namehash.hash('foo.test')), accounts[1])
   })
 
-  it('does not allow updates with stale records', async function() {
+  it('does not allow updates with stale records', async function () {
     var proof = utils.hexEncodeTXT({
       name: '_ens.bar.test',
       type: 'TXT',

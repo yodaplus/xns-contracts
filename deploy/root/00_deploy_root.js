@@ -2,11 +2,11 @@ const { ethers } = require("hardhat");
 
 const ZERO_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000';
 
-module.exports = async ({getNamedAccounts, deployments, network}) => {
-    const {deploy} = deployments;
-    const {deployer, owner} = await getNamedAccounts();
+module.exports = async ({ getNamedAccounts, deployments, network }) => {
+    const { deploy } = deployments;
+    const { deployer, owner } = await getNamedAccounts();
 
-    if(!network.tags.use_root) {
+    if (!network.tags.use_root) {
         return true;
     }
 
@@ -19,26 +19,27 @@ module.exports = async ({getNamedAccounts, deployments, network}) => {
     });
 
     const root = await ethers.getContract('Root');
+    await root.setController(owner, true);
 
     let tx = await registry.setOwner(ZERO_HASH, root.address);
     console.log(`Setting owner of root node to root contract (tx: ${tx.hash})...`);
     await tx.wait();
-    
+
     const rootOwner = await root.owner();
-    switch(rootOwner) {
-    case deployer:
-        tx = await root.attach(deployer).transferOwnership(owner);
-        console.log(`Transferring root ownership to final owner (tx: ${tx.hash})...`);
-        await tx.wait();
-    case owner:
-        if(!await root.controllers(owner)) {
-            tx = await root.attach(owner).setController(owner, true);
-            console.log(`Setting final owner as controller on root contract (tx: ${tx.hash})...`);
+    switch (rootOwner) {
+        case deployer:
+            tx = await root.attach(deployer).transferOwnership(owner);
+            console.log(`Transferring root ownership to final owner (tx: ${tx.hash})...`);
             await tx.wait();
-        }
-        break;
-    default:
-        console.log(`WARNING: Root is owned by ${rootOwner}; cannot transfer to owner account`);
+        case owner:
+            if (!await root.controllers(owner)) {
+                tx = await root.attach(owner).setController(owner, true);
+                console.log(`Setting final owner as controller on root contract (tx: ${tx.hash})...`);
+                await tx.wait();
+            }
+            break;
+        default:
+            console.log(`WARNING: Root is owned by ${rootOwner}; cannot transfer to owner account`);
     }
 
     return true;

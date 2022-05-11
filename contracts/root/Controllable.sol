@@ -1,18 +1,21 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 contract Controllable is Ownable {
     mapping(address => bool) public controllers;
 
     event ControllerChanged(address indexed controller, bool enabled);
 
-    modifier onlyController {
+    modifier onlyController() {
+        console.log("onlyController");
+        console.log(controllers[msg.sender]);
         require(
             controllers[msg.sender],
-            "Controllable: Caller is not a controller"
+            "Only controller can call this function"
         );
-        _;
+        _;  
     }
 
     function setController(address controller, bool enabled) public onlyOwner {
