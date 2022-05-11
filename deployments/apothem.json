@@ -1,9 +1,9 @@
 {
-  "name": "localhost",
-  "chainId": "31337",
+  "name": "apothem",
+  "chainId": "51",
   "contracts": {
     "LegacyENSRegistry": {
-      "address": "0x2f6f107D4Afd43c451B74DA41A6DDA53D2Bf24B1",
+      "address": "0x253A7DCECe9f43597A1d8521FfB72F774f33bC34",
       "abi": [
         {
           "inputs": [],
@@ -382,7 +382,7 @@
       ]
     },
     "ENSRegistry": {
-      "address": "0xb9b0c96e4E7181926D2A7ed331C9C346dfa59b4D",
+      "address": "0x2a09F35fFf70B02aFc697fEa63Cd464ac634CE1f",
       "abi": [
         {
           "inputs": [
@@ -780,7 +780,7 @@
       ]
     },
     "BaseRegistrarImplementation": {
-      "address": "0x905Ad472d7eeB94ed1Fc29D8ff4B53FD4D5a5Eb4",
+      "address": "0x327a301820fb00fe6C606Ec4CBE606354a40967A",
       "abi": [
         {
           "inputs": [
@@ -1513,7 +1513,7 @@
       ]
     },
     "PublicResolver": {
-      "address": "0x6D39d71fF4ab56a4873febd34e1a3BDefc01b41e",
+      "address": "0xaC145Cf4D5a4dc60de830268a4B9C4252e7E0952",
       "abi": [
         {
           "inputs": [
@@ -2381,7 +2381,7 @@
       ]
     },
     "ReverseRegistrar": {
-      "address": "0x103416cfCD0D0a32b904Ab4fb69dF6E5B5aaDf2b",
+      "address": "0x621005B796BB8130f8EAAc05B309D96FB40345B2",
       "abi": [
         {
           "inputs": [
@@ -2707,7 +2707,7 @@
       ]
     },
     "RSASHA1Algorithm": {
-      "address": "0x39826E09f8efb9df4C56Aeb9eEC0D2B8164d3B36",
+      "address": "0x94918372d3fFFF05Ce8A282F812d1189c8d1D9bE",
       "abi": [
         {
           "inputs": [
@@ -2741,7 +2741,7 @@
       ]
     },
     "RSASHA256Algorithm": {
-      "address": "0x6C3F7ed79b9D75486D0250946f7a20BDA74844Ba",
+      "address": "0x9F270E37dD208B1f7fA1FBac2669006c0e56d487",
       "abi": [
         {
           "inputs": [
@@ -2775,7 +2775,7 @@
       ]
     },
     "P256SHA256Algorithm": {
-      "address": "0x90A3B384F62f43Ba07938EA43aEEc35c2aBfeCa2",
+      "address": "0xCAc3Bb9DFa477e78E6eA3EDcEB373aE79FDE3E64",
       "abi": [
         {
           "inputs": [
@@ -2808,42 +2808,8 @@
         }
       ]
     },
-    "DummyAlgorithm": {
-      "address": "0x43c5DF0c482c88Cef8005389F64c362eE720A5bC",
-      "abi": [
-        {
-          "inputs": [
-            {
-              "internalType": "bytes",
-              "name": "",
-              "type": "bytes"
-            },
-            {
-              "internalType": "bytes",
-              "name": "",
-              "type": "bytes"
-            },
-            {
-              "internalType": "bytes",
-              "name": "",
-              "type": "bytes"
-            }
-          ],
-          "name": "verify",
-          "outputs": [
-            {
-              "internalType": "bool",
-              "name": "",
-              "type": "bool"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        }
-      ]
-    },
     "SHA1Digest": {
-      "address": "0x2098cb47B17082Ab6969FB2661f2759A9BF357c4",
+      "address": "0x8786b5de5770683556f497F168B6bf1062004815",
       "abi": [
         {
           "inputs": [
@@ -2872,7 +2838,7 @@
       ]
     },
     "SHA256Digest": {
-      "address": "0xF01f4567586c3A707EBEC87651320b2dd9F4A287",
+      "address": "0xB7b2FaB877F419bee4E08d37c666f576AE8365b3",
       "abi": [
         {
           "inputs": [
@@ -2900,37 +2866,8 @@
         }
       ]
     },
-    "DummyDigest": {
-      "address": "0x2B07F89c9F574a890F5B8b7FddAfbBaE40f6Fde2",
-      "abi": [
-        {
-          "inputs": [
-            {
-              "internalType": "bytes",
-              "name": "",
-              "type": "bytes"
-            },
-            {
-              "internalType": "bytes",
-              "name": "",
-              "type": "bytes"
-            }
-          ],
-          "name": "verify",
-          "outputs": [
-            {
-              "internalType": "bool",
-              "name": "",
-              "type": "bool"
-            }
-          ],
-          "stateMutability": "pure",
-          "type": "function"
-        }
-      ]
-    },
     "SHA1NSEC3Digest": {
-      "address": "0xCaC60200c1Cb424f2C1e438c7Ee1B98d487f0254",
+      "address": "0x23E76EFb55dC9De15F5b740157ACe32aA5ce27bA",
       "abi": [
         {
           "inputs": [
@@ -2964,7 +2901,7 @@
       ]
     },
     "DNSSECImpl": {
-      "address": "0xABc84968376556B5e5B3C3bda750D091a06De536",
+      "address": "0xC2687d1A7e75A1cE3ca888BDc44234D5109B7BcA",
       "abi": [
         {
           "inputs": [
@@ -3428,7 +3365,7 @@
       ]
     },
     "TLDPublicSuffixList": {
-      "address": "0x9015957A2210BB8B10e27d8BBEEF8d9498f123eF",
+      "address": "0x5ae39ac41487Cf99472d35De456f8b0DB50Cb4EE",
       "abi": [
         {
           "inputs": [
@@ -3452,7 +3389,7 @@
       ]
     },
     "DNSRegistrar": {
-      "address": "0x7C4BDA48bd4C9ac4FbcC60deEb66bf80d35705f0",
+      "address": "0x6A0bb06CAB9EEA0fd466599945B0E0e9706545c5",
       "abi": [
         {
           "inputs": [
@@ -3711,7 +3648,7 @@
       ]
     },
     "Root": {
-      "address": "0x9C6c49E1a5108eC5A2111c0b9B62624100d11e3a",
+      "address": "0x6153c20bcBB0E42D1456bA9Ef69aaFf94f8242f6",
       "abi": [
         {
           "inputs": [
@@ -3943,7 +3880,7 @@
       ]
     },
     "DummyOracle": {
-      "address": "0x633a7eB9b8912b22f3616013F3153de687F96074",
+      "address": "0xAA4488063bE75607De2b80515e4C010b0917562E",
       "abi": [
         {
           "inputs": [
@@ -3985,7 +3922,7 @@
       ]
     },
     "StablePriceOracle": {
-      "address": "0x1E53bea57Dd5dDa7bFf1a1180a2f64a5c9e222f5",
+      "address": "0x9336B528FaB942B6c99676CC6dfe4594CbB9aFc1",
       "abi": [
         {
           "inputs": [
@@ -4186,7 +4123,7 @@
       ]
     },
     "ETHRegistrarController": {
-      "address": "0x27f7785b17c6B4d034094a1B16Bc928bD697f386",
+      "address": "0xcdC6F27eF9481E5584f0BC41DC173203bC849e26",
       "abi": [
         {
           "inputs": [
