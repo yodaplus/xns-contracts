@@ -3,7 +3,7 @@
   "chainId": "51",
   "contracts": {
     "LegacyENSRegistry": {
-      "address": "0x253A7DCECe9f43597A1d8521FfB72F774f33bC34",
+      "address": "0x862D805b2a174F5093d4aF759a232Ce0CDd6Ff78",
       "abi": [
         {
           "inputs": [],
@@ -382,7 +382,7 @@
       ]
     },
     "ENSRegistry": {
-      "address": "0x2a09F35fFf70B02aFc697fEa63Cd464ac634CE1f",
+      "address": "0xaeEe96274a67E33ceF1AfdeDeAD9058C49948f64",
       "abi": [
         {
           "inputs": [
@@ -780,7 +780,7 @@
       ]
     },
     "BaseRegistrarImplementation": {
-      "address": "0x327a301820fb00fe6C606Ec4CBE606354a40967A",
+      "address": "0x354267E84F96b4d743Dbe36A14024FFe6D876f34",
       "abi": [
         {
           "inputs": [
@@ -1513,7 +1513,7 @@
       ]
     },
     "PublicResolver": {
-      "address": "0xaC145Cf4D5a4dc60de830268a4B9C4252e7E0952",
+      "address": "0x32545F80c279Dc81330B937586091Ebbca33032B",
       "abi": [
         {
           "inputs": [
@@ -2243,7 +2243,7 @@
             },
             {
               "internalType": "string",
-              "name": "newName",
+              "name": "name",
               "type": "string"
             }
           ],
@@ -2332,7 +2332,7 @@
               "type": "bool"
             }
           ],
-          "stateMutability": "view",
+          "stateMutability": "pure",
           "type": "function"
         },
         {
@@ -2381,13 +2381,18 @@
       ]
     },
     "ReverseRegistrar": {
-      "address": "0x621005B796BB8130f8EAAc05B309D96FB40345B2",
+      "address": "0x1Db9c5F17A1187b3e8317e96a25abF90f223B2ec",
       "abi": [
         {
           "inputs": [
             {
               "internalType": "contract ENS",
               "name": "ensAddr",
+              "type": "address"
+            },
+            {
+              "internalType": "contract NameResolver",
+              "name": "resolverAddr",
               "type": "address"
             }
           ],
@@ -2481,11 +2486,6 @@
               "internalType": "address",
               "name": "owner",
               "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "resolver",
-              "type": "address"
             }
           ],
           "name": "claimForAddr",
@@ -2513,6 +2513,35 @@
             }
           ],
           "name": "claimWithResolver",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "resolver",
+              "type": "address"
+            }
+          ],
+          "name": "claimWithResolverForAddr",
           "outputs": [
             {
               "internalType": "bytes32",
@@ -2628,19 +2657,6 @@
         {
           "inputs": [
             {
-              "internalType": "address",
-              "name": "resolver",
-              "type": "address"
-            }
-          ],
-          "name": "setDefaultResolver",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
               "internalType": "string",
               "name": "name",
               "type": "string"
@@ -2667,11 +2683,6 @@
             {
               "internalType": "address",
               "name": "owner",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "resolver",
               "type": "address"
             },
             {
@@ -2707,7 +2718,7 @@
       ]
     },
     "RSASHA1Algorithm": {
-      "address": "0x94918372d3fFFF05Ce8A282F812d1189c8d1D9bE",
+      "address": "0x59FedFc5cC41d758b8c36a95A68dA389fa7eD716",
       "abi": [
         {
           "inputs": [
@@ -2741,7 +2752,7 @@
       ]
     },
     "RSASHA256Algorithm": {
-      "address": "0x9F270E37dD208B1f7fA1FBac2669006c0e56d487",
+      "address": "0x9d253B15a8a1A01Eefb43FC7b6D4Bf6150a3c6A3",
       "abi": [
         {
           "inputs": [
@@ -2775,7 +2786,7 @@
       ]
     },
     "P256SHA256Algorithm": {
-      "address": "0xCAc3Bb9DFa477e78E6eA3EDcEB373aE79FDE3E64",
+      "address": "0xf4BdEF2bDA267F61C7bE7d763c3e3abF893A253c",
       "abi": [
         {
           "inputs": [
@@ -2809,7 +2820,7 @@
       ]
     },
     "SHA1Digest": {
-      "address": "0x8786b5de5770683556f497F168B6bf1062004815",
+      "address": "0x7495CC2bCb9c18b976659F83E4b3c776DFB679Ef",
       "abi": [
         {
           "inputs": [
@@ -2838,7 +2849,7 @@
       ]
     },
     "SHA256Digest": {
-      "address": "0xB7b2FaB877F419bee4E08d37c666f576AE8365b3",
+      "address": "0xd87088995e4592Cc7cB6CcFacdd9083C3c7e3788",
       "abi": [
         {
           "inputs": [
@@ -2867,7 +2878,7 @@
       ]
     },
     "SHA1NSEC3Digest": {
-      "address": "0x23E76EFb55dC9De15F5b740157ACe32aA5ce27bA",
+      "address": "0xe577c4D13D69166999793Ab0c2AecCE7FD2D003B",
       "abi": [
         {
           "inputs": [
@@ -2901,7 +2912,7 @@
       ]
     },
     "DNSSECImpl": {
-      "address": "0xC2687d1A7e75A1cE3ca888BDc44234D5109B7BcA",
+      "address": "0x6137F21EBA4A0bF7dFbceDbEA154261CC47ad05E",
       "abi": [
         {
           "inputs": [
@@ -3347,7 +3358,7 @@
             },
             {
               "internalType": "bytes",
-              "name": "proof",
+              "name": "_proof",
               "type": "bytes"
             }
           ],
@@ -3365,7 +3376,7 @@
       ]
     },
     "TLDPublicSuffixList": {
-      "address": "0x5ae39ac41487Cf99472d35De456f8b0DB50Cb4EE",
+      "address": "0x4aF2E32AC048aC0a74D3F757F3c7a54cbb4C567f",
       "abi": [
         {
           "inputs": [
@@ -3389,7 +3400,7 @@
       ]
     },
     "DNSRegistrar": {
-      "address": "0x6A0bb06CAB9EEA0fd466599945B0E0e9706545c5",
+      "address": "0x722E3a3236AccD266700f123ad902CF5b3aDe1C7",
       "abi": [
         {
           "inputs": [
@@ -3648,7 +3659,7 @@
       ]
     },
     "Root": {
-      "address": "0x6153c20bcBB0E42D1456bA9Ef69aaFf94f8242f6",
+      "address": "0x8376DE74062a104973B1da0385CB26Cf3c18B909",
       "abi": [
         {
           "inputs": [
@@ -3880,7 +3891,7 @@
       ]
     },
     "DummyOracle": {
-      "address": "0xAA4488063bE75607De2b80515e4C010b0917562E",
+      "address": "0xFB42d633D27dAbdbBE9E0eb76a8C950beD547676",
       "abi": [
         {
           "inputs": [
@@ -3922,7 +3933,7 @@
       ]
     },
     "StablePriceOracle": {
-      "address": "0x9336B528FaB942B6c99676CC6dfe4594CbB9aFc1",
+      "address": "0xB000021C08298e83ae2f2587e005746116F8189C",
       "abi": [
         {
           "inputs": [
@@ -3945,6 +3956,38 @@
           "inputs": [
             {
               "indexed": false,
+              "internalType": "address",
+              "name": "oracle",
+              "type": "address"
+            }
+          ],
+          "name": "OracleChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
               "internalType": "uint256[]",
               "name": "prices",
               "type": "uint256[]"
@@ -3952,6 +3995,19 @@
           ],
           "name": "RentPriceChanged",
           "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
         },
         {
           "inputs": [
@@ -4003,21 +4059,9 @@
           "name": "price",
           "outputs": [
             {
-              "components": [
-                {
-                  "internalType": "uint256",
-                  "name": "base",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "premium",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct IPriceOracle.Price",
+              "internalType": "uint256",
               "name": "",
-              "type": "tuple"
+              "type": "uint256"
             }
           ],
           "stateMutability": "view",
@@ -4025,7 +4069,20 @@
         },
         {
           "inputs": [],
-          "name": "price1Letter",
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "rentPrices",
           "outputs": [
             {
               "internalType": "uint256",
@@ -4037,55 +4094,29 @@
           "type": "function"
         },
         {
-          "inputs": [],
-          "name": "price2Letter",
-          "outputs": [
+          "inputs": [
             {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
+              "internalType": "contract AggregatorInterface",
+              "name": "_usdOracle",
+              "type": "address"
             }
           ],
-          "stateMutability": "view",
+          "name": "setOracle",
+          "outputs": [],
+          "stateMutability": "nonpayable",
           "type": "function"
         },
         {
-          "inputs": [],
-          "name": "price3Letter",
-          "outputs": [
+          "inputs": [
             {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
+              "internalType": "uint256[]",
+              "name": "_rentPrices",
+              "type": "uint256[]"
             }
           ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "price4Letter",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "price5Letter",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "stateMutability": "view",
+          "name": "setPrices",
+          "outputs": [],
+          "stateMutability": "nonpayable",
           "type": "function"
         },
         {
@@ -4108,6 +4139,19 @@
           "type": "function"
         },
         {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
           "inputs": [],
           "name": "usdOracle",
           "outputs": [
@@ -4123,7 +4167,7 @@
       ]
     },
     "ETHRegistrarController": {
-      "address": "0xcdC6F27eF9481E5584f0BC41DC173203bC849e26",
+      "address": "0x183eDD894e6C9809ddDfd9f1Bf0b98F396073dE6",
       "abi": [
         {
           "inputs": [
@@ -4133,7 +4177,7 @@
               "type": "address"
             },
             {
-              "internalType": "contract IPriceOracle",
+              "internalType": "contract PriceOracle",
               "name": "_prices",
               "type": "address"
             },
@@ -4146,16 +4190,6 @@
               "internalType": "uint256",
               "name": "_maxCommitmentAge",
               "type": "uint256"
-            },
-            {
-              "internalType": "contract ReverseRegistrar",
-              "name": "_reverseRegistrar",
-              "type": "address"
-            },
-            {
-              "internalType": "contract INameWrapper",
-              "name": "_nameWrapper",
-              "type": "address"
             }
           ],
           "stateMutability": "nonpayable",
@@ -4185,13 +4219,7 @@
             {
               "indexed": false,
               "internalType": "uint256",
-              "name": "baseCost",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "premium",
+              "name": "cost",
               "type": "uint256"
             },
             {
@@ -4233,6 +4261,19 @@
             }
           ],
           "name": "NameRenewed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "oracle",
+              "type": "address"
+            }
+          ],
+          "name": "NewPriceOracle",
           "type": "event"
         },
         {
@@ -4331,9 +4372,33 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
-              "name": "duration",
-              "type": "uint256"
+              "internalType": "bytes32",
+              "name": "secret",
+              "type": "bytes32"
+            }
+          ],
+          "name": "makeCommitment",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
             },
             {
               "internalType": "bytes32",
@@ -4346,22 +4411,12 @@
               "type": "address"
             },
             {
-              "internalType": "bytes[]",
-              "name": "data",
-              "type": "bytes[]"
-            },
-            {
-              "internalType": "bool",
-              "name": "reverseRecord",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint96",
-              "name": "fuses",
-              "type": "uint96"
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
             }
           ],
-          "name": "makeCommitment",
+          "name": "makeCommitmentWithConfig",
           "outputs": [
             {
               "internalType": "bytes32",
@@ -4400,19 +4455,6 @@
         },
         {
           "inputs": [],
-          "name": "nameWrapper",
-          "outputs": [
-            {
-              "internalType": "contract INameWrapper",
-              "name": "",
-              "type": "address"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [],
           "name": "owner",
           "outputs": [
             {
@@ -4425,16 +4467,31 @@
           "type": "function"
         },
         {
-          "inputs": [],
-          "name": "prices",
-          "outputs": [
+          "inputs": [
             {
-              "internalType": "contract IPriceOracle",
-              "name": "",
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
               "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "duration",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "secret",
+              "type": "bytes32"
             }
           ],
-          "stateMutability": "view",
+          "name": "register",
+          "outputs": [],
+          "stateMutability": "payable",
           "type": "function"
         },
         {
@@ -4465,22 +4522,12 @@
               "type": "address"
             },
             {
-              "internalType": "bytes[]",
-              "name": "data",
-              "type": "bytes[]"
-            },
-            {
-              "internalType": "bool",
-              "name": "reverseRecord",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint96",
-              "name": "fuses",
-              "type": "uint96"
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
             }
           ],
-          "name": "register",
+          "name": "registerWithConfig",
           "outputs": [],
           "stateMutability": "payable",
           "type": "function"
@@ -4526,37 +4573,43 @@
           "name": "rentPrice",
           "outputs": [
             {
-              "components": [
-                {
-                  "internalType": "uint256",
-                  "name": "base",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "premium",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct IPriceOracle.Price",
-              "name": "price",
-              "type": "tuple"
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
             }
           ],
           "stateMutability": "view",
           "type": "function"
         },
         {
-          "inputs": [],
-          "name": "reverseRegistrar",
-          "outputs": [
+          "inputs": [
             {
-              "internalType": "contract ReverseRegistrar",
-              "name": "",
+              "internalType": "uint256",
+              "name": "_minCommitmentAge",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_maxCommitmentAge",
+              "type": "uint256"
+            }
+          ],
+          "name": "setCommitmentAges",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "contract PriceOracle",
+              "name": "_prices",
               "type": "address"
             }
           ],
-          "stateMutability": "view",
+          "name": "setPriceOracle",
+          "outputs": [],
+          "stateMutability": "nonpayable",
           "type": "function"
         },
         {
