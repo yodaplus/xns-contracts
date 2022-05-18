@@ -1,9 +1,11 @@
-// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
+abstract contract ResolverBase {
+    bytes4 private constant INTERFACE_META_ID = 0x01ffc9a7;
 
-import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+    function supportsInterface(bytes4 interfaceID) virtual public pure returns(bool) {
+        return interfaceID == INTERFACE_META_ID;
+    }
 
-abstract contract ResolverBase is ERC165 {
     function isAuthorised(bytes32 node) internal virtual view returns(bool);
 
     modifier authorised(bytes32 node) {

@@ -1,108 +1,98 @@
 pragma solidity >=0.8.4;
 
-import "./IPriceOracle.sol";
+import "./PriceOracle.sol";
 import "./SafeMath.sol";
 import "./StringUtils.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 
 interface AggregatorInterface {
-    function latestAnswer() external view returns (int256);
+  function latestAnswer() external view returns (int256);
 }
 
+
 // StablePriceOracle sets a price in USD, based on an oracle.
-contract StablePriceOracle is IPriceOracle {
+contract StablePriceOracle is Ownable, PriceOracle {
     using SafeMath for *;
     using StringUtils for *;
 
-    // Rent in base price units by length
-    uint256 public immutable price1Letter;
-    uint256 public immutable price2Letter;
-    uint256 public immutable price3Letter;
-    uint256 public immutable price4Letter;
-    uint256 public immutable price5Letter;
+    // Rent in base price units by length. Element 0 is for 1-length names, and so on.
+    uint[] public rentPrices;
 
     // Oracle address
-    AggregatorInterface public immutable usdOracle;
+    AggregatorInterface public usdOracle;
 
-    event RentPriceChanged(uint256[] prices);
+    event OracleChanged(address oracle);
 
-    constructor(AggregatorInterface _usdOracle, uint256[] memory _rentPrices) {
+    event RentPriceChanged(uint[] prices);
+
+    bytes4 constant private INTERFACE_META_ID = bytes4(keccak256("supportsInterface(bytes4)"));
+    bytes4 constant private ORACLE_ID = bytes4(keccak256("price(string,uint256,uint256)") ^ keccak256("premium(string,uint256,uint256)"));
+
+    constructor(AggregatorInterface _usdOracle, uint[] memory _rentPrices) public {
         usdOracle = _usdOracle;
-        price1Letter = _rentPrices[0];
-        price2Letter = _rentPrices[1];
-        price3Letter = _rentPrices[2];
-        price4Letter = _rentPrices[3];
-        price5Letter = _rentPrices[4];
+        setPrices(_rentPrices);
     }
 
-    function price(
-        string calldata name,
-        uint256 expires,
-        uint256 duration
-    ) external view override returns (IPriceOracle.Price memory) {
-        uint256 len = name.strlen();
-        uint256 basePrice;
-
-        if (len == 1) {
-            basePrice = price1Letter * duration;
-        } else if (len == 2) {
-            basePrice = price2Letter * duration;
-        } else if (len == 3) {
-            basePrice = price3Letter * duration;
-        } else if (len == 4) {
-            basePrice = price4Letter * duration;
-        } else {
-            basePrice = price5Letter * duration;
+    function price(string calldata name, uint expires, uint duration) external view override returns(uint) {
+        uint len = name.strlen();
+        if(len > rentPrices.length) {
+            len = rentPrices.length;
         }
+        require(len > 0);
+        
+        uint basePrice = rentPrices[len - 1].mul(duration);
+        basePrice = basePrice.add(_premium(name, expires, duration));
 
-        return
-            IPriceOracle.Price({
-                base: attoUSDToWei(basePrice),
-                premium: attoUSDToWei(_premium(name, expires, duration))
-            });
+        return attoUSDToWei(basePrice);
+    }
+
+    /**
+     * @dev Sets rent prices.
+     * @param _rentPrices The price array. Each element corresponds to a specific
+     *                    name length; names longer than the length of the array
+     *                    default to the price of the last element. Values are
+     *                    in base price units, equal to one attodollar (1e-18
+     *                    dollar) each.
+     */
+    function setPrices(uint[] memory _rentPrices) public onlyOwner {
+        rentPrices = _rentPrices;
+        emit RentPriceChanged(_rentPrices);
+    }
+
+    /**
+     * @dev Sets the price oracle address
+     * @param _usdOracle The address of the price oracle to use.
+     */
+    function setOracle(AggregatorInterface _usdOracle) public onlyOwner {
+        usdOracle = _usdOracle;
+        emit OracleChanged(address(_usdOracle));
     }
 
     /**
      * @dev Returns the pricing premium in wei.
      */
-    function premium(
-        string calldata name,
-        uint256 expires,
-        uint256 duration
-    ) external view returns (uint256) {
+    function premium(string calldata name, uint expires, uint duration) external view returns(uint) {
         return attoUSDToWei(_premium(name, expires, duration));
     }
 
     /**
      * @dev Returns the pricing premium in internal base units.
      */
-    function _premium(
-        string memory name,
-        uint256 expires,
-        uint256 duration
-    ) internal view virtual returns (uint256) {
+    function _premium(string memory name, uint expires, uint duration) virtual internal view returns(uint) {
         return 0;
     }
 
-    function attoUSDToWei(uint256 amount) internal view returns (uint256) {
-        uint256 ethPrice = uint256(usdOracle.latestAnswer());
-        return (amount * 1e8) / ethPrice;
+    function attoUSDToWei(uint amount) internal view returns(uint) {
+        uint ethPrice = uint(usdOracle.latestAnswer());
+        return amount.mul(1e8).div(ethPrice);
     }
 
-    function weiToAttoUSD(uint256 amount) internal view returns (uint256) {
-        uint256 ethPrice = uint256(usdOracle.latestAnswer());
-        return (amount * ethPrice) / 1e8;
+    function weiToAttoUSD(uint amount) internal view returns(uint) {
+        uint ethPrice = uint(usdOracle.latestAnswer());
+        return amount.mul(ethPrice).div(1e8);
     }
 
-    function supportsInterface(bytes4 interfaceID)
-        public
-        view
-        virtual
-        returns (bool)
-    {
-        return
-            interfaceID == type(IERC165).interfaceId ||
-            interfaceID == type(IPriceOracle).interfaceId;
+    function supportsInterface(bytes4 interfaceID) public view virtual returns (bool) {
+        return interfaceID == INTERFACE_META_ID || interfaceID == ORACLE_ID;
     }
 }
