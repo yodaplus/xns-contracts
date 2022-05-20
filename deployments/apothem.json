@@ -3,7 +3,7 @@
   "chainId": "51",
   "contracts": {
     "LegacyENSRegistry": {
-      "address": "0x7273fD06d45B6b7F8F1866F27f0b34d72A8a4f73",
+      "address": "0xd6265416Fa6362d7fB1E79bB6C598DF377C2f5aB",
       "abi": [
         {
           "inputs": [],
@@ -382,7 +382,7 @@
       ]
     },
     "ENSRegistry": {
-      "address": "0xaF23579Ee261153dA46a41c618E5BE05C7E301FB",
+      "address": "0xffeB2473850C22c90B7c1ccd91ba57e39aC48c48",
       "abi": [
         {
           "inputs": [
@@ -780,7 +780,7 @@
       ]
     },
     "BaseRegistrarImplementation": {
-      "address": "0x5057E28290396935029E3D04cfCBB26320E88DB2",
+      "address": "0x0E94711DF236f53e3CCC36d955b8195F946B165a",
       "abi": [
         {
           "inputs": [
@@ -1513,7 +1513,7 @@
       ]
     },
     "PublicResolver": {
-      "address": "0xA5b3388fe6C1988007D057f2F21400B9E3b2C5EC",
+      "address": "0x737393d8F4F4bb2140A5b7f3F1C117480abC5710",
       "abi": [
         {
           "inputs": [
@@ -2381,7 +2381,7 @@
       ]
     },
     "ReverseRegistrar": {
-      "address": "0x82e3910F0B8474DCA219AdB093ded73558Ee92CF",
+      "address": "0x1E4BefFfE81488f888995d716dBd3E34aC570B96",
       "abi": [
         {
           "inputs": [
@@ -2718,7 +2718,7 @@
       ]
     },
     "RSASHA1Algorithm": {
-      "address": "0x577338B083Dc84ef535FE9A2DB708832334C6eb6",
+      "address": "0x3fEe7Cd163F1cA3482d523C0325e411165F212CE",
       "abi": [
         {
           "inputs": [
@@ -2752,7 +2752,7 @@
       ]
     },
     "RSASHA256Algorithm": {
-      "address": "0xE76b4D79182A25187e9A61B7e673036eE5b58d3b",
+      "address": "0xe4dd09c210FdCb9b333354A52e085c145a749806",
       "abi": [
         {
           "inputs": [
@@ -2786,7 +2786,7 @@
       ]
     },
     "P256SHA256Algorithm": {
-      "address": "0x74Ce2ba830B49ed51CC16DAd6ae22e0A9Af531F2",
+      "address": "0xF117b4BE185e63f55A5f6477edFB0Caded99cC56",
       "abi": [
         {
           "inputs": [
@@ -2820,7 +2820,7 @@
       ]
     },
     "SHA1Digest": {
-      "address": "0xD3e1a97FC116B0314Fc86012527529474f7E586E",
+      "address": "0x7Adbb0ddb449230be4aFFa1c5eDCCf8427183411",
       "abi": [
         {
           "inputs": [
@@ -2849,7 +2849,7 @@
       ]
     },
     "SHA256Digest": {
-      "address": "0x9aD1fd25718EEeE541E111DA4F4893803B9eBc5B",
+      "address": "0x02d69C4Af0778272272451b0BA0D3eF9a08A3217",
       "abi": [
         {
           "inputs": [
@@ -2878,7 +2878,7 @@
       ]
     },
     "SHA1NSEC3Digest": {
-      "address": "0x3840049fe393C529f4e6C0a7F0431Bd4c1298292",
+      "address": "0x15783632C34b70e6073a8638dc8A65804F4C5906",
       "abi": [
         {
           "inputs": [
@@ -2912,7 +2912,7 @@
       ]
     },
     "DNSSECImpl": {
-      "address": "0x496cD8025FEb217F2ddaF672020BB4e28c8Fd855",
+      "address": "0xab01F1f26bbE6616E4548b25b488A04B4c838c96",
       "abi": [
         {
           "inputs": [
@@ -3376,7 +3376,7 @@
       ]
     },
     "TLDPublicSuffixList": {
-      "address": "0x41f8d05404498ac046d9e565d4804641E2100567",
+      "address": "0xb9d14f3FDa30f6aB42306a5a4CAE5Fa18d70A2Bc",
       "abi": [
         {
           "inputs": [
@@ -3400,7 +3400,7 @@
       ]
     },
     "DNSRegistrar": {
-      "address": "0xF0AE82921Def4A70F0b778B0b296CC9e15B3663e",
+      "address": "0xaE3D483524387267E656ECf0b7FC2db93737C06D",
       "abi": [
         {
           "inputs": [
@@ -3659,7 +3659,7 @@
       ]
     },
     "Root": {
-      "address": "0xf1F40D3d22A2aD5177A8ca752Eb3A27152eCfCA5",
+      "address": "0xC10e4FDb099D2346339aC4C8F2ddE9eE27dF7fA9",
       "abi": [
         {
           "inputs": [
@@ -3891,7 +3891,7 @@
       ]
     },
     "DummyOracle": {
-      "address": "0xee90A8A6Ec604bD3416e6A42062B0f1B9B0a1651",
+      "address": "0xE61F5fCD6e0171D2241fD42886573D412236477E",
       "abi": [
         {
           "inputs": [
@@ -3933,7 +3933,7 @@
       ]
     },
     "StablePriceOracle": {
-      "address": "0x54B1D1F6Aa805Da09C39CA47e02EBB61Dcb0865e",
+      "address": "0xD87bD51C3ED52733b1bfBCBf476C5f5c9c686ED6",
       "abi": [
         {
           "inputs": [
@@ -4167,7 +4167,7 @@
       ]
     },
     "ETHRegistrarController": {
-      "address": "0x66E99885cc27A421fA20b49A94aA467722869c96",
+      "address": "0x15Ae20fb6d20CA1611589e89228a74C170b8db8D",
       "abi": [
         {
           "inputs": [

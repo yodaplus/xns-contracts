@@ -164,7 +164,7 @@ contract ETHRegistrarController is Ownable {
         require(commitments[commitment] + minCommitmentAge <= block.timestamp);
 
         // If the commitment is too old, or the name is registered, stop
-        require(commitments[commitment] + maxCommitmentAge > block.timestamp);
+        // require(commitments[commitment] + maxCommitmentAge > block.timestamp);
         require(available(name));
 
         delete(commitments[commitment]);
