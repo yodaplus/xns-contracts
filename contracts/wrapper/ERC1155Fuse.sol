@@ -9,8 +9,6 @@ import "@openzeppelin/contracts/utils/Address.sol";
 
 /* This contract is a variation on ERC1155 with the additions of _setData, getData and _canTransfer and ownerOf. _setData and getData allows the use of the other 96 bits next to the address of the owner for extra data. We use this to store 'fuses' that control permissions that can be burnt. */
 
-error OperationProhibited(bytes32 node);
-
 abstract contract ERC1155Fuse is ERC165, IERC1155, IERC1155MetadataURI {
     using Address for address;
     mapping(uint256 => uint256) public _tokens;
@@ -167,10 +165,10 @@ abstract contract ERC1155Fuse is ERC165, IERC1155, IERC1155MetadataURI {
         );
 
         (address oldOwner, uint96 fuses) = getData(id);
-        if (!_canTransfer(fuses)) {
-            revert OperationProhibited(bytes32(id));
-        }
-
+        require(
+            _canTransfer(fuses),
+            "NameWrapper: Fuse already burned for transferring owner"
+        );
         require(
             amount == 1 && oldOwner == from,
             "ERC1155: insufficient balance for transfer"
@@ -208,10 +206,10 @@ abstract contract ERC1155Fuse is ERC165, IERC1155, IERC1155MetadataURI {
 
             (address oldOwner, uint96 fuses) = getData(id);
 
-            if (!_canTransfer(fuses)) {
-                revert OperationProhibited(bytes32(id));
-            }
-
+            require(
+                _canTransfer(fuses),
+                "NameWrapper: Fuse already burned for transferring owner"
+            );
             require(
                 amount == 1 && oldOwner == from,
                 "ERC1155: insufficient balance for transfer"

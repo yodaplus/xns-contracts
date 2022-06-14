@@ -1,14 +1,23 @@
-// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
-
 import "../ResolverBase.sol";
 import "../../dnssec-oracle/RRUtils.sol";
-import "./IDNSRecordResolver.sol";
-import "./IDNSZoneResolver.sol";
 
-abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverBase {
+abstract contract DNSResolver is ResolverBase {
     using RRUtils for *;
     using BytesUtils for bytes;
+
+    bytes4 constant private DNS_RECORD_INTERFACE_ID = 0xa8fa5682;
+    bytes4 constant private DNS_ZONE_INTERFACE_ID = 0x5c47637c;
+
+    // DNSRecordChanged is emitted whenever a given node/name/resource's RRSET is updated.
+    event DNSRecordChanged(bytes32 indexed node, bytes name, uint16 resource, bytes record);
+    // DNSRecordDeleted is emitted whenever a given node/name/resource's RRSET is deleted.
+    event DNSRecordDeleted(bytes32 indexed node, bytes name, uint16 resource);
+    // DNSZoneCleared is emitted whenever a given node's zone information is cleared.
+    event DNSZoneCleared(bytes32 indexed node);
+
+    // DNSZonehashChanged is emitted whenever a given node's zone hash is updated.
+    event DNSZonehashChanged(bytes32 indexed node, bytes lastzonehash, bytes zonehash);
 
     // Zone hashes for the domains.
     // A zone hash is an EIP-1577 content hash in binary format that should point to a
@@ -50,7 +59,7 @@ abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverB
      * @param node the namehash of the node for which to set the records
      * @param data the DNS wire format records to set
      */
-    function setDNSRecords(bytes32 node, bytes calldata data) virtual external authorised(node) {
+    function setDNSRecords(bytes32 node, bytes calldata data) external authorised(node) {
         uint16 resource = 0;
         uint256 offset = 0;
         bytes memory name;
@@ -87,7 +96,7 @@ abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverB
      * @param resource the ID of the resource as per https://en.wikipedia.org/wiki/List_of_DNS_record_types
      * @return the DNS record in wire format if present, otherwise empty
      */
-    function dnsRecord(bytes32 node, bytes32 name, uint16 resource) virtual override public view returns (bytes memory) {
+    function dnsRecord(bytes32 node, bytes32 name, uint16 resource) public view returns (bytes memory) {
         return records[node][versions[node]][name][resource];
     }
 
@@ -96,7 +105,7 @@ abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverB
      * @param node the namehash of the node for which to check the records
      * @param name the namehash of the node for which to check the records
      */
-    function hasDNSRecords(bytes32 node, bytes32 name) virtual public view returns (bool) {
+    function hasDNSRecords(bytes32 node, bytes32 name) public view returns (bool) {
         return (nameEntriesCount[node][versions[node]][name] != 0);
     }
 
@@ -104,7 +113,7 @@ abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverB
      * Clear all information for a DNS zone.
      * @param node the namehash of the node for which to clear the zone
      */
-    function clearDNSZone(bytes32 node) virtual public authorised(node) {
+    function clearDNSZone(bytes32 node) public authorised(node) {
         versions[node]++;
         emit DNSZoneCleared(node);
     }
@@ -115,7 +124,7 @@ abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverB
      * @param node The node to update.
      * @param hash The zonehash to set
      */
-    function setZonehash(bytes32 node, bytes calldata hash) virtual external authorised(node) {
+    function setZonehash(bytes32 node, bytes calldata hash) external authorised(node) {
         bytes memory oldhash = zonehashes[node];
         zonehashes[node] = hash;
         emit DNSZonehashChanged(node, oldhash, hash);
@@ -126,13 +135,13 @@ abstract contract DNSResolver is IDNSRecordResolver, IDNSZoneResolver, ResolverB
      * @param node The ENS node to query.
      * @return The associated contenthash.
      */
-    function zonehash(bytes32 node) virtual override external view returns (bytes memory) {
+    function zonehash(bytes32 node) external view returns (bytes memory) {
         return zonehashes[node];
     }
 
-    function supportsInterface(bytes4 interfaceID) virtual override public view returns(bool) {
-        return interfaceID == type(IDNSRecordResolver).interfaceId ||
-               interfaceID == type(IDNSZoneResolver).interfaceId ||
+    function supportsInterface(bytes4 interfaceID) virtual override public pure returns(bool) {
+        return interfaceID == DNS_RECORD_INTERFACE_ID ||
+               interfaceID == DNS_ZONE_INTERFACE_ID ||
                super.supportsInterface(interfaceID);
     }
 
