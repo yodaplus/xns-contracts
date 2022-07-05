@@ -13,7 +13,7 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
 
   await deploy("ETHRegistrarController", {
     from: deployer,
-    args: [baseRegistrar.address, priceOracle.address, 600, 86400],
+    args: [baseRegistrar.address, priceOracle.address, 60, 86400],
     log: true,
   });
 
