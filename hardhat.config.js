@@ -48,6 +48,7 @@ const sharedNetworkConfig = {
  */
 module.exports = {
   tld: TLD,
+  tlds:['xdc','srx'],
   networks: {
     hardhat: {
       // Required for real DNS record tests
