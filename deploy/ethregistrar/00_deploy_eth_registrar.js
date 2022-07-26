@@ -19,9 +19,10 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
 
   const controller = await ethers.getContract("ETHRegistrarController");
   const transactions = [];
-  transactions.push(
-    await baseRegistrar.addController(controller.address, { from: deployer })
-  );
+  const t1 = await baseRegistrar.addController(controller.address, {
+    from: deployer,
+  });
+  await t1.wait();
   // ESTIMATE GAS -->
   // transactions.push(await controller.setPriceOracle(priceOracle.address, {from: deployer}));
   console.log(`Waiting on settings to take place ${transactions.length}`);

@@ -21,11 +21,11 @@ async function setTLDsOnRoot(owner, root, registrar, tlds) {
   }
 
   const transactions = [];
+  let t1;
   for (const tld of tlds) {
     const labelhash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tld));
-    transactions.push(
-      await rootOwner.setSubnodeOwner(labelhash, registrar.address)
-    );
+    t1 = await rootOwner.setSubnodeOwner(labelhash, registrar.address);
+    await t1.wait();
   }
   console.log(
     "🚀 ~ file: 10_set_tlds.js ~ line 23 ~ setTLDsOnRoot ~ transactions",
@@ -40,11 +40,15 @@ async function setTLDsOnRegistry(owner, registry, registrar, tlds) {
   }
 
   const transactions = [];
+  let t2;
   for (const tld of tlds) {
     const labelhash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(tld));
-    transactions.push(
-      await registry.setSubnodeOwner(ZERO_HASH, labelhash, registrar.address)
+    t2 = await registry.setSubnodeOwner(
+      ZERO_HASH,
+      labelhash,
+      registrar.address
     );
+    await t2.wait();
   }
   return transactions;
 }

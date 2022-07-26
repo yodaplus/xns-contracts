@@ -11,7 +11,7 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
   const ens = await ethers.getContract("ENSRegistry");
   //   const nameresolve = await ethers.getContract("NameResolver");
   const resolver = await ethers.getContract("PublicResolver");
-
+  console.log("Deploying Reverse Registrar...");
   await deploy("ReverseRegistrar", {
     from: deployer,
     args: [ens.address, resolver.address],
@@ -19,16 +19,14 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
   const reverseRegistrar = await ethers.getContract("ReverseRegistrar");
 
   const transactions = [];
-  transactions.push(
-    await ens.setSubnodeOwner(ZERO_HASH, sha3("reverse"), deployer)
+  const t1 = await ens.setSubnodeOwner(ZERO_HASH, sha3("reverse"), deployer);
+  await t1.wait();
+  const t2 = await ens.setSubnodeOwner(
+    namehash.hash("reverse"),
+    sha3("addr"),
+    reverseRegistrar.address
   );
-  transactions.push(
-    await ens.setSubnodeOwner(
-      namehash.hash("reverse"),
-      sha3("addr"),
-      reverseRegistrar.address
-    )
-  );
+  await t2.wait();
   console.log(
     `Waiting on settings to take place of reverse registrar ${transactions.length}`
   );

@@ -91,24 +91,31 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
   const dnssec = await ethers.getContract("DNSSECImpl");
 
   const transactions = [];
+  let t1, t2, t3;
   for (const [id, alg] of Object.entries(algorithms)) {
     const address = (await deployments.get(alg)).address;
     if (address != (await dnssec.algorithms(id))) {
-      transactions.push(await dnssec.setAlgorithm(id, address));
+      console.log(`Setting ${alg} to ${address} , t1`);
+      t1 = await dnssec.setAlgorithm(id, address);
+      await t1.wait();
     }
   }
 
   for (const [id, digest] of Object.entries(digests)) {
     const address = (await deployments.get(digest)).address;
     if (address != (await dnssec.digests(id))) {
-      transactions.push(await dnssec.setDigest(id, address));
+      console.log(`Setting ${digest} to ${address} , t2`);
+      t2 = await dnssec.setDigest(id, address);
+      await t2.wait();
     }
   }
 
   for (const [id, digest] of Object.entries(nsec_digests)) {
     const address = (await deployments.get(digest)).address;
     if (address != (await dnssec.nsec3Digests(id))) {
-      transactions.push(await dnssec.setNSEC3Digest(id, address));
+      console.log(`Setting ${digest} to ${address} , t3`);
+      t3 = await dnssec.setNSEC3Digest(id, address);
+      await t3.wait();
     }
   }
 
