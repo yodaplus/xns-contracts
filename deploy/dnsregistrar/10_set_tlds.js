@@ -4,7 +4,7 @@ const tld_map = {
   mainnet: ["xyz"],
   ropsten: ["xyz"],
   localhost: ["xyz"],
-  apothem: ["xyz", "srx"],
+  apothem: ["xyz"],
 };
 
 const ZERO_HASH =

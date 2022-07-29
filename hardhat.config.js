@@ -23,7 +23,7 @@ task("accounts", "Prints the list of accounts", async () => {
 });
 
 // TLD to use in deployment
-const TLD = "xdc";
+const TLD = "go";
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
